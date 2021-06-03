@@ -1,0 +1,554 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>实验二： ORM关系映射 &mdash; lab2  文档</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="Welcome to lab2’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> lab2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">目录：</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">实验二： ORM关系映射</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">摘要</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">实验过程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">实验工具</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">ORM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sqlalchemy">SQLAlchemy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">实验方法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">实验结果</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">数据表的生成</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">代码修改</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model-py">model.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#orm-py">orm.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#app-py">app.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">实验总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">实验代码</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">model.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">orm.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">app.py</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lab2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>实验二： ORM关系映射</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/实验二 ORM关系映射.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="orm">
+<h1>实验二： ORM关系映射<a class="headerlink" href="#orm" title="永久链接至标题">¶</a></h1>
+<center>
+
+作者：许璐怡 朱文琦 洪仪 诸斯涔<br/>
+
+来源：浙江师范大学&nbsp;&nbsp;&nbsp;&nbsp;
+
+日期：2021/05/31</center><div class="section" id="id1">
+<h2>摘要<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>为了避免把sql语句写死在代码里，我们需要一种能像面向对象那样直接把原生sql封装好了并且以你熟悉的方式操作的方法——ORM就是对象映射关系程序。相当于ORM帮我们SQL写成类的形式，然后通过类来调用，获取，而不是写底层的sql（insert，update，select）来获取。ORM 相当于把数据库也给实例化了，在代码操作mysql中级又加了orm这一层。使用SQLAlchemy的ORM（对象关系映射器）操作数据库，就不需要在web程序应用中编写任何原始SQL语句。</p>
+<p>在该实验中，我们需要借助ORM和SQLAlchemy等工具为现有项目EnglishPal建立四个数据库表，来提高学习者的词汇量。学习如何运用SQLAlchemy将一个类映射到一个表里，将该类的一个数据映射到数据表中的一行，并客观分析其优缺点。</p>
+</div>
+<div class="section" id="id2">
+<h2>介绍<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>对象关系映射（Object Relation Mapping，简称ORM，或O/RM，或O/R mapping），是一种程序技术，用于实现面向对象编程语言里不同类型系统的数据之间的转换。从效果上说，它其实是创建了一个可在编程语言里使用的“虚拟对象数据库”。</p>
+<p>面向对象是从软件工程基本原则（如耦合、聚合、封装）的基础上发展起来的，而关系数据库则是从数学理论发展而来的，两套理论存在显著的区别。为了解决这个不匹配的现象，对象关系映射技术应运而生。</p>
+<p>对象关系映射（Object-Relational Mapping）提供了概念性的、易于理解的模型化数据的方法。ORM方法论基于三个核心原则： 简单：以最基本的形式建模数据。 传达性：数据库结构被任何人都能理解的语言文档化。 精确性：基于数据模型创建正确标准化的结构。 典型地，建模者通过收集来自那些熟悉应用程序但不熟练的数据建模者的人的信息开发信息模型。建模者必须能够用非技术企业专家可以理解的术语在概念层次上与数据结构进行通讯。建模者也必须能以简单的单元分析信息，对样本数据进行处理。ORM专门被设计为改进这种联系。</p>
+<p>简单的说：ORM相当于中继数据。通过ORM将编程语言的对象模型和数据库的关系模型建立映射关系，这样我们在使用编程语言对数据库进行操作的时候可以直接使用编程语言的对象模型进行操作就可以了，而不用直接使用sql语言。</p>
+</div>
+<div class="section" id="id3">
+<h2>实验过程<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3>实验工具<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id5">
+<h4>ORM<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p>ORM全称Object Relational Mapping对象关系映射。</p>
+<p>ORM 将数据库中的表与面向对象语言中的类建立了一种对应关系。这样操作数据库或者数据库中的表或者表中的一条记录就可以直接通过操作类或者类的实例来完成。</p>
+</div>
+<div class="section" id="sqlalchemy">
+<h4>SQLAlchemy<a class="headerlink" href="#sqlalchemy" title="永久链接至标题">¶</a></h4>
+<p>SQLAlchemy是一个常用的ORM工具，使用它可以快速方便的构建数据库模型。</p>
+<center><img alt="_images/pic01.png" src="_images/pic01.png" />
+<p>图一 SQLAlchemy框架</p>
+</center><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>组成部分：
+
+Engine，框架的引擎
+
+Connection Pooling ，数据库连接池
+
+Dialect，选择连接数据库的DB API种类
+
+Schema/Types，架构和类型
+
+SQL Expression Language，SQL表达式语言
+
+SQLAlchemy本身无法操作数据库，其必须以来pymsql等第三方插件，Dialect用于和数据API进行交流，根据配置文件的不同调用不同的数据库API，从而实现对数据库的操作。
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>实验方法<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>首先要给python安装sqlalchemy、python-mysqldb两个包，在cmd控制台种进行pip install即可。如图二所示：</p>
+<center><img alt="_images/pic02.png" src="_images/pic02.png" />
+<p>图二 pip install界面</p>
+</center><p>安装成功后我们即可在python编辑器中对代码进行修改、运行和测试。如图三所示：</p>
+<center><img alt="_images/pic03.png" src="_images/pic03.png" />
+<p>图三 python编辑器界面</p>
+</center><p>对代码进行审阅和修改后，即可按要求成功生成标准数据库，同时编辑器中会输出在生成数据库过程中产生的测试结果，如图四所示：</p>
+<center><img alt="_images/pic04.png" src="_images/pic04.png" />
+<p>图四 运行测试输出展示</p>
+</center></div>
+</div>
+<div class="section" id="id7">
+<h2>实验结果<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id8">
+<h3>数据表的生成<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>运用ORM成功生成四个数据表，如图五所示：</p>
+<center><img alt="_images/pic05.png" src="_images/pic05.png" />
+<p>图五 成功生成数据表</p>
+</center><p>以下图六至图十三分别为用修改代码成功生成的articles、newwords、readings和users表的结构和数据截图：</p>
+<center><img alt="_images/pic06.png" src="_images/pic06.png" />
+<p>图六 articles表结构</p>
+</center><center><img alt="_images/pic07.png" src="_images/pic07.png" />
+<p>图七 articles表数据</p>
+</center><center><img alt="_images/pic08.png" src="_images/pic08.png" />
+<p>图八 newwords表结构</p>
+</center><center><img alt="_images/pic09.png" src="_images/pic09.png" />
+<p>图九 newwords表数据</p>
+</center><center><img alt="_images/pic10.png" src="_images/pic10.png" />
+<p>图十 readings表结构</p>
+</center><center><img alt="_images/pic11.png" src="_images/pic11.png" />
+<p>图十一 readings表数据</p>
+</center><center><img alt="_images/pic12.png" src="_images/pic12.png" />
+<p>图十二 users表结构</p>
+</center><center><img alt="_images/pic13.png" src="_images/pic13.png" />
+<p>图十三 users表数据</p>
+</center></div>
+<div class="section" id="id9">
+<h3>代码修改<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<div class="section" id="model-py">
+<h4>model.py<a class="headerlink" href="#model-py" title="永久链接至标题">¶</a></h4>
+<p>read_article函数成功将用户名和文章id数据添加到readings表中，成功生成的readings表将通过ForeignKey与users表、articles表相关联，我们可以通过readings表成功追踪到每个用户的文章阅读记录。</p>
+<p>model.py中User类里的read_article方法里的pass修改为self._read.append(article),将用户阅读过的文章添加到列表中，用于记录每个用户的阅读情况。</p>
+<p>model.py修改代码处如图十四所示：</p>
+<center><img alt="_images/pic14.png" src="_images/pic14.png" />
+<p>图十四 model.py修改代码处</p>
+</center></div>
+<div class="section" id="orm-py">
+<h4>orm.py<a class="headerlink" href="#orm-py" title="永久链接至标题">¶</a></h4>
+<p>而为了实验ORM映射，我们针对orm.py代码文件的start_mappers函数进行了修改，并新添加了一个readings数据表结构。</p>
+<p>（1）orm.py中添加readings表，主键为阅读id，随着输入数据条目增加自增。两个外键分别连接users表和articles表，调用username和article_id。</p>
+<p>（2）orm.py中start_mappers方法中添加的代码，将article类映射到articles表里、将user类映射到users表里，由于newwords表和readings表里都有users表的外键，所以也将他们映射进来，因为readings表有两个外键，多对多关系会在两个类之间增加一个关联的表。这个关联的表在 relationship() 方法中通过 secondary 参数来表示。mapper函数进行映射后，app.py中通过query查询返回的结果，会自动将返回的结果构造成一个reading对象，并拥有id属性。</p>
+<p>orm.py修改代码处如图十五所示：</p>
+<center><img alt="_images/pic15.png" src="_images/pic15.png" />
+<p>图十五 model.py修改代码处</p>
+</center></div>
+<div class="section" id="app-py">
+<h4>app.py<a class="headerlink" href="#app-py" title="永久链接至标题">¶</a></h4>
+<p>在app.py文件中，我们也只对数据库文件生成的路径进行了修改，如图十六所示：</p>
+<center><img alt="_images/pic16.png" src="_images/pic16.png" />
+<p>图十六 app.py修改代码处</p>
+</center></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>实验总结<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<p>ORM框架的作用就是把数据库表的一行记录与一个对象互相做转换，项目里面真正使用它的时候还需要进行合理的封装，它有优势也有缺陷。</p>
+<p><strong>优势：</strong></p>
+<p>它隐藏了数据访问细节，实现了以“封闭”的通用数据库交互为核心的映射。这使得我们的通用数据库交互变得简单易行，并且完全不用考虑令人厌烦的SQL语句，从而进行快速开发，因此，ORM使得我们构造固定的数据结构变得简单易行。</p>
+<p><strong>缺陷：</strong></p>
+<p>自动化意味着不可避免得映射和关联管理，这种工作的代价是牺牲性能（这也是早期所有不喜欢ORM人的共同点）。现在的各种ORM框架都在尝试使用各种方法来减轻这种负担。</p>
+</div>
+<div class="section" id="id11">
+<h2>实验代码<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id12">
+<h3>model.py<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Article</span><span class="p">:</span>
+    <span class="n">article_id</span><span class="p">:</span><span class="nb">int</span>
+    <span class="n">text</span><span class="p">:</span><span class="nb">str</span>
+    <span class="n">source</span><span class="p">:</span><span class="nb">str</span>
+    <span class="n">date</span><span class="p">:</span><span class="nb">str</span>
+    <span class="n">level</span><span class="p">:</span><span class="nb">int</span>
+    <span class="n">question</span><span class="p">:</span><span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">NewWord</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;yyyy-mm-dd&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">word</span> <span class="o">=</span> <span class="n">word</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
+
+
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;12345&#39;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2021-05-19&#39;</span><span class="p">,</span> <span class="n">expiry_date</span><span class="o">=</span><span class="s1">&#39;2031-05-19&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expiry_date</span> <span class="o">=</span> <span class="n">expiry_date</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">read_article</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">article</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h3>orm.py<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">ForeignKey</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">relationship</span>
+
+<span class="kn">import</span> <span class="nn">model</span>
+
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">()</span>
+
+<span class="n">articles</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s1">&#39;articles&#39;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;article_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">10000</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">10</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;question&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">1000</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+<span class="n">users</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s1">&#39;users&#39;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">64</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;start_date&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;expiry_date&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="n">newwords</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s1">&#39;newwords&#39;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;word_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;users.username&#39;</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;word&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">20</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">10</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+
+<span class="n">readings</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="s1">&#39;readings&#39;</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="p">,</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">String</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;users.username&#39;</span><span class="p">)),</span>
+    <span class="n">Column</span><span class="p">(</span><span class="s1">&#39;article_id&#39;</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;articles.article_id&#39;</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">start_mappers</span><span class="p">():</span>
+    <span class="n">readings_mapper</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Article</span><span class="p">,</span> <span class="n">articles</span><span class="p">)</span>
+    <span class="n">mapper</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">,</span> <span class="n">users</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;newwords&#39;</span> <span class="p">:</span> <span class="n">relationship</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;users&#39;</span><span class="p">),</span>
+        <span class="s2">&quot;_read&quot;</span><span class="p">:</span> <span class="n">relationship</span><span class="p">(</span>
+            <span class="n">readings_mapper</span><span class="p">,</span> <span class="n">secondary</span><span class="o">=</span><span class="n">readings</span><span class="p">,</span> <span class="n">collection_class</span><span class="o">=</span><span class="nb">list</span>
+        <span class="p">)</span>
+    <span class="p">},)</span>
+<span class="n">mapper</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">,</span><span class="n">newwords</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>app.py<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span>
+
+<span class="kn">import</span> <span class="nn">model</span>
+<span class="kn">import</span> <span class="nn">orm</span>
+
+
+<span class="n">orm</span><span class="o">.</span><span class="n">start_mappers</span><span class="p">()</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;sqlite:///E:\浙江师范大学\软件体系结构\lab2\db\EnglishPalDatabase.db&#39;</span><span class="p">)</span>
+<span class="n">orm</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">drop_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+<span class="n">orm</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
+<span class="n">get_session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+
+
+
+<span class="c1"># add two users</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;mrlan&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;12345&#39;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2021-05-14&#39;</span><span class="p">))</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;lanhui&#39;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s1">&#39;Hard2Guess!&#39;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2021-05-15&#39;</span><span class="p">))</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Duplicate insertions.&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+
+<span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+
+
+<span class="c1"># add a few new words</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;lanhui&#39;</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;starbucks&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-05-15&#39;</span><span class="p">))</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;lanhui&#39;</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;luckin&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-05-15&#39;</span><span class="p">))</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;lanhui&#39;</span><span class="p">,</span> <span class="n">word</span><span class="o">=</span><span class="s1">&#39;secondcup&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-05-15&#39;</span><span class="p">))</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;mrlan&#39;</span><span class="p">,</span>  <span class="n">word</span><span class="o">=</span><span class="s1">&#39;costa&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-05-15&#39;</span><span class="p">))</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">NewWord</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;mrlan&#39;</span><span class="p">,</span>  <span class="n">word</span><span class="o">=</span><span class="s1">&#39;timhortons&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;2021-05-15&#39;</span><span class="p">))</span>
+<span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+
+
+<span class="c1"># add a few articles</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">()</span>
+<span class="n">article</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Article</span><span class="p">(</span><span class="n">article_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;THE ORIGIN OF SPECIES BY MEANS OF NATURAL SELECTION, OR THE PRESERVATION OF FAVOURED RACES IN THE STRUGGLE FOR LIFE&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s1">&#39;CHARLES DARWIN, M.A.&#39;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s1">&#39;1859-01-01&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">question</span><span class="o">=</span><span class="s1">&#39;Are humans descended from monkeys?&#39;</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+<span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+
+
+<span class="c1"># query user and let him read something</span>
+
+<span class="n">session</span> <span class="o">=</span> <span class="n">get_session</span><span class="p">()</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;lanhui&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">newwords</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">word</span><span class="p">)</span>
+
+<span class="n">user</span><span class="o">.</span><span class="n">read_article</span><span class="p">(</span><span class="n">article</span><span class="p">)</span> <span class="c1"># this method call will add a row to table readings</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-----&#39;</span><span class="p">)</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s1">&#39;mrlan&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">newwords</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">word</span><span class="p">)</span>
+
+<span class="n">user</span><span class="o">.</span><span class="n">read_article</span><span class="p">(</span><span class="n">article</span><span class="p">)</span> <span class="c1"># this method call will add a row to table readings</span>
+
+<span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>参考资料<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Harry Percival and Bob Gregory. Architecture Patterns with Python. O’Reilly Media; 1st edition (March 31, 2020)</p></li>
+<li><p>SQLAlchemy使用笔记 <a class="reference external" href="https://blog.csdn.net/billvsme/article/details/50197197">https://blog.csdn.net/billvsme/article/details/50197197</a></p></li>
+<li><p>Python SQLAlchemy表的ORM描述 <a class="reference external" href="https://blog.csdn.net/weixin_42072754/article/details/106732722">https://blog.csdn.net/weixin_42072754/article/details/106732722</a></p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to lab2’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; 版权所有 2021, Zhu Wenqi.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
